@@ -47,14 +47,14 @@
 - name: Fetch mr-provisioner KEA plugin
   unarchive:
     src: "{{item}}"
-    dest: "{{mr_provisioner_build_path}}"
+    dest: "{{kea_build_path}}"
     remote_src: yes
   with_items:
-    - "https://github.com/Linaro/mr-provisioner-kea/archive/v{{mr_provisioner_kea_plugin_version}}.tar.gz"
+    - "https://github.com/Linaro/mr-provisioner-kea/archive/v{{kea_mr_provisioner_plugin_version}}.tar.gz"
 
 - name: Build and install mr-provisioner KEA plugin
   make:
-    chdir: "{{mr_provisioner_build_path}}/mr-provisioner-kea-{{mr_provisioner_kea_plugin_version}}"
+    chdir: "{{kea_build_path}}/mr-provisioner-kea-{{kea_mr_provisioner_plugin_version}}"
     target: install
     params:
       KEA_SRC: "{{kea_build_path}}/kea-{{kea_version}}"
