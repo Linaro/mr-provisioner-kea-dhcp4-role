@@ -1,0 +1,70 @@
+{ "Dhcp4": {
+    "interfaces-config": {
+        "interfaces": [ "{{kea_dhcp_listen_iface}}" ],
+        "dhcp-socket-type": "raw"
+    },
+    "valid-lifetime": 3600,
+    "renew-timer": 1000,
+    "rebind-timer": 2000,
+    "subnet4": [
+    {% for subnet in kea_subnets %}
+       {
+            "subnet": "{{subnet.subnet}}",
+            "pools": [
+             {% for pool in subnet.pools %}
+             { "pool": "{{pool|string}}" } {% if not loop.last %}, {% endif %}
+             {% endfor %}
+            ]
+       }{% if not loop.last %}, {%endif%}
+    {% endfor %}
+    ],
+    "option-data": [
+        {
+           "name": "domain-name-servers",
+           "data": "{{kea_nameservers}}"
+        },
+        {
+           "name": "routers",
+           "data": "{{kea_default_gateway}}"
+        }
+    ],
+    "hooks-libraries": [
+        {
+            "library": "/opt/kea/lib/libkea-hook-mr-provisioner.so",
+            "parameters": {
+                "provisioner_url": "http://{{mr_provisioner_public_addr}}:{{mr_provisioner_public_port}}/dhcp",
+                "timeout_ms": 5000
+            }
+        }
+    ]
+},
+
+"Logging": {
+    "loggers": [
+        {
+            "name": "kea-dhcp4.leases",
+            "output_options": [
+                {
+                    "output": "/opt/kea/logs/kea-leases.log",
+                    "maxver": 8,
+                    "maxsize": 204800,
+                    "flush": true
+                }
+            ],
+            "severity": "{{kea_log_level}}",
+	    "debuglevel": 99
+       },{
+            "name": "kea-dhcp4.packets",
+            "output_options": [
+                {
+                    "output": "/opt/kea/logs/kea-packets.log",
+                    "maxver": 8,
+                    "maxsize": 204800,
+                    "flush": true
+                }
+            ],
+            "severity": "{{kea_log_level}}",
+            "debuglevel": 99
+      }]
+}
+}

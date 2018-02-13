@@ -1,0 +1,14 @@
+galaxy_info:
+  author: Jorge Niedbalski <jorge.niedbalski@linaro.org>
+  description: Install and configure kea-dhcp4 on a MrProvisioner host
+  license: BSD
+
+  min_ansible_version: 2.4
+  platforms:
+    - name: GenericLinux
+      versions:
+        - all
+
+  galaxy_tags: []
+
+dependencies: []

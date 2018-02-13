@@ -1,0 +1,14 @@
+kea_version: "1.2.0"
+kea_services:
+  - kea-dhcp4
+kea_config: "/etc/kea.conf"
+kea_path: "/opt/kea"
+kea_build_path: "{{kea_path}}/build"
+kea_log_level: "DEBUG"
+kea_nameservers: ""
+kea_default_gateway: ""
+kea_dhcp_listen_iface: ""
+kea_subnets: []
+kea_mr_provisioner_plugin_version: "0.1"
+kea_mr_provisioner_public_addr: ""
+kea_mr_provisioner_public_port: "5000"
