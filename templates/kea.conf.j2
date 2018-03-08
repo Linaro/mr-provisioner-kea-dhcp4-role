@@ -1,6 +1,6 @@
 { "Dhcp4": {
     "interfaces-config": {
-        "interfaces": [ {% for iface in kea_dhcp_listen_ifaces %}"{{iface}}"{% endfor %} ],
+        "interfaces": [ {% for iface in kea_dhcp_listen_ifaces %}"{{iface}}"{% if not loop.last %}, {% endif %}{% endfor %} ],
         "dhcp-socket-type": "raw"
     },
     "valid-lifetime": 3600,
