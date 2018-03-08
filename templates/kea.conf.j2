@@ -10,7 +10,7 @@
     {% for subnet in kea_subnets %}
        {
             "subnet": "{{subnet.subnet}}",
-	    {% if subnet.interface %}"interface": "{{subnet.interface}}", {% endif %}
+	    {% if subnet.interface is defined %}"interface": "{{subnet.interface}}", {% endif %}
             "pools": [
              {% for pool in subnet.pools %}
              { "pool": "{{pool|string}}" } {% if not loop.last %}, {% endif %}
