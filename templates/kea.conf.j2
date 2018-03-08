@@ -30,7 +30,7 @@
     ],
     "hooks-libraries": [
         {
-            "library": "/opt/kea/lib/libkea-hook-mr-provisioner.so",
+            "library": "{{kea_path}}/lib/libkea-hook-mr-provisioner.so",
             "parameters": {
                 "provisioner_url": "http://{{kea_mr_provisioner_public_addr}}:{{kea_mr_provisioner_public_port}}/dhcp",
                 "timeout_ms": 5000
@@ -45,7 +45,7 @@
             "name": "kea-dhcp4.leases",
             "output_options": [
                 {
-                    "output": "/opt/kea/logs/kea-leases.log",
+                    "output": "{{kea_path}}/logs/kea-leases.log",
                     "maxver": 8,
                     "maxsize": 204800,
                     "flush": true
@@ -57,7 +57,7 @@
             "name": "kea-dhcp4.packets",
             "output_options": [
                 {
-                    "output": "/opt/kea/logs/kea-packets.log",
+                    "output": "{{kea_path}}/logs/kea-packets.log",
                     "maxver": 8,
                     "maxsize": 204800,
                     "flush": true
