@@ -4,7 +4,7 @@ Wants=network-online.target
 After=network-online.target
 
 [Service]
-ExecStart={{kea_path}}/sbin/kea-dhcp4 -c {{kea_conf}}
+ExecStart={{kea_path}}/sbin/kea-dhcp4 -c {{kea_config}}
 
 [Install]
 WantedBy=multi-user.target
