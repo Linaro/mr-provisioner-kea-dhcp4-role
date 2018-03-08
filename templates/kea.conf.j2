@@ -1,6 +1,6 @@
 { "Dhcp4": {
     "interfaces-config": {
-        "interfaces": [ "{{kea_dhcp_listen_iface}}" ],
+        "interfaces": [ {% for iface in kea_dhcp_listen_ifaces %}"{{iface}}"{% endfor %} ],
         "dhcp-socket-type": "raw"
     },
     "valid-lifetime": 3600,
@@ -10,6 +10,7 @@
     {% for subnet in kea_subnets %}
        {
             "subnet": "{{subnet.subnet}}",
+	    {% if subnet.interface %}"interface": "{{subnet.interface}}", {% endif %}
             "pools": [
              {% for pool in subnet.pools %}
              { "pool": "{{pool|string}}" } {% if not loop.last %}, {% endif %}
