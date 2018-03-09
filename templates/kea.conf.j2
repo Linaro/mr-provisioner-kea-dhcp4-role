@@ -19,7 +19,7 @@
 	    "reservations": [
 	{% for reservation in subnet.reservations %}
 	     {
-		"hw-address": "{{reservation.macaddress}}"
+		"hw-address": "{{reservation.macaddress}}",
 		"ip-address": "{{reservation.ipaddress}}"
 	     }{% if not loop.last %},{% endif %}
         {% endfor %}
