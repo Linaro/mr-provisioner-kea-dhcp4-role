@@ -5,6 +5,7 @@
     name: "{{item}}"
     update_cache: yes
   with_items:
+    - sudo
     - build-essential
     - libssl-dev
     - liblog4cplus-dev
