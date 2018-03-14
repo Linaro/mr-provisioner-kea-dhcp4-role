@@ -10,6 +10,7 @@
     - liblog4cplus-dev
     - libcurl4-openssl-dev
     - libboost-all-dev
+  when: not kea_aptinstall and not kea_hook_aptinstall
 
 - name: Create required directories
   file:
@@ -49,7 +50,7 @@
 
 - name: Install KEA via apt
   shell: "cd {{kea_build_path}} && wget {{kea_deb_pkg_html}} && apt install -y ./{{kea_deb_pkg_name}}"
-  when: kea_aptinstall
+  when: kea.stat.exists == False and kea_aptinstall
 
 - name: Fetch mr-provisioner KEA plugin
   unarchive:
@@ -58,6 +59,7 @@
     remote_src: yes
   with_items:
     - "https://github.com/Linaro/mr-provisioner-kea/archive/v{{kea_mr_provisioner_plugin_version}}.tar.gz"
+  when: not kea_hook_aptinstall
 
 - name: Build and install mr-provisioner KEA plugin
   make:
@@ -66,6 +68,11 @@
     params:
       KEA_SRC: "{{kea_build_path}}/kea-{{kea_version}}"
       KEA_PREFIX: "{{kea_path}}"
+  when: not kea_hook_aptinstall
+
+- name: Install KEA MrP hook via apt
+  shell: "cd {{kea_build_path}} && wget {{kea_hook_repo}} && apt install -y ./{{kea_hook_deb_pkg_name}}"
+  when: kea_hook_aptinstall
 
 - name: Generate configuration files for KEA
   template:
