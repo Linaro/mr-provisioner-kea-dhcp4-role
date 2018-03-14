@@ -5,6 +5,7 @@ kea_config: "/etc/kea.conf"
 kea_path: "/opt/kea"
 kea_build_path: "{{kea_path}}/build"
 kea_aptinstall: False
+kea_hook_aptinstall: False
 kea_log_level: "DEBUG"
 kea_nameservers: ""
 kea_default_gateway: ""
