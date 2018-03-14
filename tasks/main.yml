@@ -49,7 +49,7 @@
 
 - name: Install KEA via apt
   shell: "cd {{kea_build_path}} && wget {{kea_deb_pkg_html}} && apt install -y ./{{kea_deb_pkg_name}}"
-  when: kea_aptinstall
+  when: kea.stat.exists == False and kea_aptinstall
 
 - name: Fetch mr-provisioner KEA plugin
   unarchive:
