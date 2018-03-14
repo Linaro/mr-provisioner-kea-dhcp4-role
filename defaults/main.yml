@@ -8,6 +8,9 @@ kea_aptinstall: "False"
 kea_log_level: "DEBUG"
 kea_nameservers: ""
 kea_default_gateway: ""
+kea_validlifetime: "3600"
+kea_renewtimer: "1000"
+kea_rebindtimer: "2000"
 kea_dhcp_listen_ifaces: []
 kea_subnets: []
 kea_mr_provisioner_plugin_version: "0.1"

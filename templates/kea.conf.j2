@@ -3,9 +3,9 @@
         "interfaces": [ {% for iface in kea_dhcp_listen_ifaces %}"{{iface}}"{% if not loop.last %}, {% endif %}{% endfor %} ],
         "dhcp-socket-type": "raw"
     },
-    "valid-lifetime": 3600,
-    "renew-timer": 1000,
-    "rebind-timer": 2000,
+    "valid-lifetime": {{kea_validlifetime}},
+    "renew-timer": {{kea_renewtimer}},
+    "rebind-timer": {{kea_rebindtimer}},
     "subnet4": [
     {% for subnet in kea_subnets %}
        {
@@ -15,6 +15,16 @@
              {% for pool in subnet.pools %}
              { "pool": "{{pool|string}}" } {% if not loop.last %}, {% endif %}
              {% endfor %}
+	    			],
+			"option-data": [
+				{
+					"name": "domain-name-servers",
+					"data": "{{subnet.nameservers|default(kea_nameservers)}}"
+				},
+				{
+					"name": "routers",
+					"data": "{{subnet.default_gateway|default(kea_default_gateway)}}"
+				}
             ]{% if subnet.reservations is defined %},
 	    "reservations": [
 	{% for reservation in subnet.reservations %}
