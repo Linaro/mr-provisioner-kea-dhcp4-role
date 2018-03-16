@@ -19,6 +19,9 @@
     - "{{kea_build_path}}"
     - "{{kea_path}}/bin"
     - "{{kea_path}}/logs"
+    - "{{kea_path}}/var"
+    - "{{kea_path}}/var/run/kea"
+    - "{{kea_path}}/var/kea"
 
 - name: Check public addr
   set_fact:
@@ -42,7 +45,11 @@
   shell: "cd {{kea_build_path}}/kea-{{kea_version}}/ && ./configure --prefix={{kea_path}} && make -j && make install"
   register: build
   fail_when: build.rc != 0
-  when: kea.stat.exists == False
+  when: kea.stat.exists == False and not kea_aptinstall 
+
+- name: Install KEA via apt
+  shell: "cd {{kea_build_path}} && wget {{kea_deb_pkg_html}} && apt install -y ./{{kea_deb_pkg_name}}"
+  when: kea.stat.exists == False and kea_aptinstall
 
 - name: Fetch mr-provisioner KEA plugin
   unarchive:
