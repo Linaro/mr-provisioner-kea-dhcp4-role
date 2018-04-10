@@ -13,6 +13,7 @@ kea_validlifetime: "3600"
 kea_renewtimer: "1000"
 kea_rebindtimer: "2000"
 kea_dhcp_listen_ifaces: []
+kea_domain_search: ""
 kea_subnets: []
 kea_mr_provisioner_plugin_version: "0.1"
 kea_mr_provisioner_public_addr: ""

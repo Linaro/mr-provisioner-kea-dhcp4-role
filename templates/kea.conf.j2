@@ -38,10 +38,18 @@
     {% endfor %}
     ],
     "option-data": [
+        {% if kea_domain_search not in (None, '') %}
+        {
+           "name": "domain-search",
+           "data": "{{kea_domain_search}}"
+        },
+        {% endif %}
+        {% if kea_nameservers not in (None, '') %}
         {
            "name": "domain-name-servers",
            "data": "{{kea_nameservers}}"
         },
+        {% endif %}
         {
            "name": "routers",
            "data": "{{kea_default_gateway}}"
